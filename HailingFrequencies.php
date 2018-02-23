@@ -7,7 +7,8 @@ use PubNub\Enums\PNStatusCategory;
 
 class HailingFrequencies extends SubscribeCallback {
 	function message($pubnub, $message) : void {
-		// TODO: Implement message() method.
+		echo "Ken never stays on message!" . PHP_EOL;
+		var_dump($message);
 	}
 
 	function presence($pubnub, $presence) : void {
