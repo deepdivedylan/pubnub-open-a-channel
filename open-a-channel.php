@@ -1,4 +1,5 @@
 <?php
+require_once("HailingFrequencies.php");
 require_once("vendor/autoload.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -13,14 +14,19 @@ try {
 	$config = readConfig("/etc/apache2/capstone-mysql/kmaru.ini");
 	$pubNub = json_decode($config["pubnub"]);
 	$pubNubConf = new PNConfiguration();
+	$pubNubBoard = new PubNub($pubNubConf);
 	$pubNubConf->setSubscribeKey($pubNub->subscribeKey);
 	$pubNubConf->setPublishKey($pubNub->publishKey);
 	$pubNubConf->setSecretKey($pubNub->secretKey);
 	$pubNubConf->setSecure(true);
-	$pubNubBoard = new PubNub($pubNubConf);
 
 
+	$pubNubBoard->addListener(new HailingFrequencies());
 
+	$pubNubBoard->subscribe()->channels("romulan-senate")->execute();
+
+	$result = $pubNubBoard->publish()->channel("romulan-senate")->message("feel the fuzzy")->sync();
+	$reply->data = $result;
 } catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
