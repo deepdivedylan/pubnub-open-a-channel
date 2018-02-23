@@ -19,6 +19,8 @@ try {
 	$pubNubConf->setSecure(true);
 	$pubNubBoard = new PubNub($pubNubConf);
 
+
+
 } catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
