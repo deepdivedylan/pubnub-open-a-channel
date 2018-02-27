@@ -21,12 +21,9 @@ try {
 	$pubNubConf->setSecure(true);
 
 
-	$pubNubBoard->addListener(new HailingFrequencies());
+	$pubNubBoard->addListener(new HailingFrequencies($pubNubBoard));
 
 	$pubNubBoard->subscribe()->channels("romulan-senate")->execute();
-
-	$result = $pubNubBoard->publish()->channel("romulan-senate")->message("feel the fuzzy")->sync();
-	$reply->data = $result;
 } catch(\Exception | \TypeError $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
