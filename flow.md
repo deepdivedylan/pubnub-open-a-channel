@@ -5,6 +5,12 @@ Subscribing by default blocks and creates a server. So the true question is, *ho
 1. publish a start message to a channel named `board-uuid`
 2. use the uuid to give a URL out to clients
 3. beg slackbot for help
+4. board state is inserted into captain's session
+
+# Join Game
+1. user signs into a game
+2. pubnub broadcasts UUID of the user
+3. captain (subscribed on frontend) `PUT`s the user into the board
 
 # Question Selection
 1. captain clicks on question verbally asked for
