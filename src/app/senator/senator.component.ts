@@ -18,7 +18,7 @@ export class SenatorComponent {
 
 	constructor(protected formBuilder: FormBuilder, protected pubnub: PubNubAngular, protected senatorService: SenatorService) {
 		this.roomForm = this.formBuilder.group({
-			roomName: ["", [Validators.maxLength(64), Validators.required]]
+			roomName: ["", [Validators.maxLength(64), Validators.pattern(/^[a-z-]+$/), Validators.required]]
 		});
 		this.pubnub.init({
 			publishKey: "pub-c-d8eb3d22-aab2-4526-a633-a6da83bb3ef7",
