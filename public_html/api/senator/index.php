@@ -3,7 +3,7 @@ require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
 require_once(dirname(__DIR__, 3) . "/php/lib/xsrf.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-use PubNub\PubNub;
+use PubNub\{PNConfiguration, PubNub};
 use PubNub\Callbacks\SubscribeCallback;
 use PubNub\Enums\PNStatusCategory;
 use PubNub\Exceptions\PubNubUnsubscribeException;
@@ -58,7 +58,7 @@ try {
 		$requestObject = json_decode($requestContent);
 		$roomName = filter_var($requestObject->roomName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-		$config = readConfig("/etc/apache2/capstone-mysql/open-a-channel.ini");
+		$config = readConfig("/etc/apache2/capstone-mysql/pubnub-open-a-channel.ini");
 		$pubNub = json_decode($config["pubnub"]);
 		$pubNubConf = new PNConfiguration();
 		$pubNubBoard = new PubNub($pubNubConf);
