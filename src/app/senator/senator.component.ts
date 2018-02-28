@@ -30,6 +30,7 @@ export class SenatorComponent {
 			if(status.status === 200) {
 				this.roomName = roomName;
 			}
+			this.status = status;
 		});
 	}
 }
