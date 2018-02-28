@@ -21,6 +21,10 @@
 
 <ng-template #chat>
 	<h2>Chat Area</h2>
+	<p *ngFor="let chatMessage of chatMessages">
+		&lt;{{ chatMessage.username }}&gt; {{ chatMessage.message }}<br />
+		<em>{{ chatMessage.timestamp | date:"medium" }}</em>
+	</p>
 </ng-template>
 
 <div *ngIf="status !== null" class="alert alert-dismissible" [class]="status.type" role="alert">
