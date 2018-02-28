@@ -11,12 +11,16 @@ import {Status} from "../shared/classes/status";
 
 export class SenatorComponent {
 
+	chatForm: FormGroup;
 	chatMessages: Message[] = [];
 	roomName: string = null;
 	roomForm: FormGroup;
 	status: Status = null;
 
 	constructor(protected formBuilder: FormBuilder, protected pubnub: PubNubAngular, protected senatorService: SenatorService) {
+		this.chatForm = this.formBuilder.group({
+			chatMessage: ["", [Validators.maxLength(1024), Validators.required]]
+		});
 		this.roomForm = this.formBuilder.group({
 			roomName: ["", [Validators.maxLength(64), Validators.pattern(/^[a-z-]+$/), Validators.required]]
 		});
@@ -32,6 +36,11 @@ export class SenatorComponent {
 				parent.chatMessages.push(message);
 			}
 		});
+	}
+
+	sendChat(): void {
+		let message = new Message(this.chatForm.value.chatMessage, new Date(), "senator-arlo");
+		this.pubnub.publish({message: message, channel: this.roomName});
 	}
 
 	createRoom(): void {
