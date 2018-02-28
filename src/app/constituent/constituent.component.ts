@@ -4,4 +4,4 @@ import {Component, OnInit} from "@angular/core";
 	template: require("./constituent.component.html")
 })
 
-export class ConsituentComponent {}
+export class ConstituentComponent {}

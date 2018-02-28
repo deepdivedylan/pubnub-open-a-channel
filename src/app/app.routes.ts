@@ -1,6 +1,6 @@
 import {RouterModule, Routes} from "@angular/router";
 import {SplashComponent} from "./splash/splash.component";
-import {ConstituentComponent} from "./constituent/consituent.component";
+import {ConstituentComponent} from "./constituent/constituent.component";
 import {SenatorComponent} from "./senator/senator.component";
 import {ConstituentService} from "./shared/services/constituent.service";
 import {SenatorService} from "./shared/services/senator.service";
