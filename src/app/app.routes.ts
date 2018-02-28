@@ -1,5 +1,6 @@
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
+import {PubNubAngular} from "pubnub-angular2";
 import {SplashComponent} from "./splash/splash.component";
 import {ConstituentComponent} from "./constituent/constituent.component";
 import {SenatorComponent} from "./senator/senator.component";
@@ -18,6 +19,7 @@ export const routes: Routes = [
 
 export const appRoutingProviders: any[] = [
 	{provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true},
+	PubNubAngular,
 	ConstituentService,
 	SenatorService
 ];
