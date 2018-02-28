@@ -10,7 +10,7 @@ export class ConstituentService {
 
 	private constituentUrl = "api/constituent/";
 
-	joinRoom(roomId: string, username: string) : Observable<Status> {
-		return(this.http.post<Status>(this.constituentUrl, {room: roomId, username: username}));
+	joinRoom(roomName: string, username: string) : Observable<Status> {
+		return(this.http.post<Status>(this.constituentUrl, {roomName: roomName, username: username}));
 	}
 }
