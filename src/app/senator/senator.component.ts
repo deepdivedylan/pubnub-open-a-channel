@@ -1,5 +1,8 @@
 import {Component} from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PubNubAngular} from "pubnub-angular2";
+import {SenatorService} from "../shared/services/senator.service";
+import {Status} from "../shared/classes/status";
 
 @Component({
 	template: require("./senator.component.html")
@@ -7,10 +10,26 @@ import {PubNubAngular} from "pubnub-angular2";
 
 export class SenatorComponent {
 
-	constructor(protected pubnub: PubNubAngular) {
+	roomName: string = null;
+	roomForm: FormGroup;
+	status: Status = null;
+
+	constructor(protected formBuilder: FormBuilder, protected pubnub: PubNubAngular, protected senatorService: SenatorService) {
+		this.roomForm = this.formBuilder.group({
+			roomName: ["", [Validators.maxLength(64), Validators.required]]
+		});
 		this.pubnub.init({
 			publishKey: "pub-c-d8eb3d22-aab2-4526-a633-a6da83bb3ef7",
 			subscribeKey: "sub-c-73e431b8-1cb2-11e8-b6fb-56b8b46ff3aa"
+		});
+	}
+
+	createRoom(): void {
+		let roomName = this.roomForm.value.roomName;
+		this.senatorService.createRoom(roomName).subscribe(status => {
+			if(status.status === 200) {
+				this.roomName = roomName;
+			}
 		});
 	}
 }

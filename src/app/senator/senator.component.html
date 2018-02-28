@@ -1,1 +1,29 @@
 <h1>Senator Component</h1>
+<div *ngIf="roomName === null; else chat">
+	<h2>Create Room</h2>
+	<form name="roomForm" class="form-horizontal" [formGroup]="roomForm" (submit)="createRoom();" novalidate>
+		<div class="form-group">
+			<label for="roomName">Room name</label>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fas fa-university" aria-hidden="true"></i></span>
+				</div>
+				<input type="text" name="roomName" id="roomName" class="form-control" formControlName="roomName" />
+			</div>
+			<div *ngIf="roomForm.controls.roomName?.invalid && roomForm.controls.roomName?.touched" class="alert alert-danger" role="alert">
+				<p *ngIf="roomForm.controls.roomName?.errors.required">Room name is required.</p>
+				<p *ngIf="roomForm.controls.roomName?.errors.maxlength">Room name is too long. You typed {{ roomForm.controls.roomName?.errors.maxlength.actualLength - roomForm.controls.roomName?.errors.maxlength.requiredLength }} too many characters.</p>
+			</div>
+		</div>
+		<button class="btn btn-success" type="submit"><i class="fas fa-flag-checkered"></i> Create Room</button>
+	</form>
+</div>
+
+<ng-template #chat>
+	<p>Chat Area</p>
+</ng-template>
+
+<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
+	<button type="button" class="close" aria-label="Close" (click)="status = null;"><span aria-hidden="true">&times;</span></button>
+	{{ status.message }}
+</div>
