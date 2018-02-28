@@ -8,13 +8,13 @@ export class SenatorService {
 
 	constructor(protected http: HttpClient) {}
 
-	private userUrl = "api/senator/";
+	private senatorUrl = "api/senator/";
 
-	createRoom() : Observable<Status> {
-		return(this.http.post<Status>(this.userUrl, {command: "open"}));
+	createRoom(roomName: string) : Observable<Status> {
+		return(this.http.post<Status>(this.senatorUrl, {command: "open", roomName: roomName}));
 	}
 
-	destroyRoom(roomId: string): Observable<Status> {
-		return(this.http.delete<Status>(this.userUrl + roomId));
+	destroyRoom(roomName: string): Observable<Status> {
+		return(this.http.post<Status>(this.senatorUrl, {command: "delete", roomName: roomName}));
 	}
 }
