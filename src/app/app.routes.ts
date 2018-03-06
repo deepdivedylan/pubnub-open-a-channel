@@ -6,6 +6,7 @@ import {ConstituentComponent} from "./constituent/constituent.component";
 import {SenatorComponent} from "./senator/senator.component";
 import {ConstituentService} from "./shared/services/constituent.service";
 import {SenatorService} from "./shared/services/senator.service";
+import {SessionService} from "./shared/services/session.service";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 
 
@@ -21,7 +22,8 @@ export const appRoutingProviders: any[] = [
 	{provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true},
 	PubNubAngular,
 	ConstituentService,
-	SenatorService
+	SenatorService,
+	SessionService
 ];
 
 export const routing = RouterModule.forRoot(routes);
