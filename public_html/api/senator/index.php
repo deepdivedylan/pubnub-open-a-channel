@@ -44,6 +44,11 @@ class SenatorCallback extends SubscribeCallback {
 	}
 }
 
+// open session
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+
 // prepare an empty reply
 $reply = new stdClass();
 $reply->status = 200;
@@ -54,6 +59,7 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	if($method === "POST") {
+		verifyXsrf();
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 		$roomName = filter_var($requestObject->roomName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
