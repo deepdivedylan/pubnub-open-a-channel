@@ -11,6 +11,7 @@ export class PubnubService {
 	protected chatSubject : BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
 	public chatObserver : Observable<Message[]> = this.chatSubject.asObservable();
 	protected chatRoom : string = null;
+	protected username : string = null;
 
 	constructor(protected pubnub: PubNubAngular, protected senatorService: SenatorService) {
 		this.pubnub.init({
@@ -33,14 +34,15 @@ export class PubnubService {
 		return(this.chatRoom);
 	}
 
-	setChatRoom(roomName: string) : void {
+	joinChatRoom(roomName: string, username: string) : void {
 		this.chatRoom = roomName;
+		this.username = username;
 		this.pubnub.subscribe({channels: [roomName]});
 	}
 
 	createRoom(roomName: string) : void {
 		this.senatorService.createRoom(roomName)
-			.subscribe(() => this.setChatRoom(roomName));
+			.subscribe(() => this.joinChatRoom(roomName, "senator-arlo"));
 	}
 
 	sendChat(messageText: string, username: string): void {
