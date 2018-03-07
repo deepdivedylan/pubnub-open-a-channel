@@ -45,8 +45,8 @@ export class PubnubService {
 			.subscribe(() => this.joinChatRoom(roomName, "senator-arlo"));
 	}
 
-	sendChat(messageText: string, username: string): void {
-		let message = new Message(messageText, new Date(), username);
+	sendChat(messageText: string): void {
+		let message = new Message(messageText, new Date(), this.username);
 		this.pubnub.publish({message: message, channel: this.chatRoom});
 	}
 }
