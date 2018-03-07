@@ -3,7 +3,7 @@ import { AppModule } from './app/app.module';
 import { enableProdMode } from '@angular/core';
 
 window.addEventListener("DOMContentLoaded", event => {
-	if(process.env.ENV === "production") {
+	if(process.env.ENV === "live") {
 		enableProdMode();
 	}
 	const platform = platformBrowserDynamic();
