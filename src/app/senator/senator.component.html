@@ -21,27 +21,7 @@
 </div>
 
 <ng-template #chat>
-	<h2>Chat Area</h2>
-	<p *ngFor="let chatMessage of chatMessages">
-		&lt;{{ chatMessage.username }}&gt; {{ chatMessage.message }}<br />
-		<em>{{ chatMessage.timestamp | date:"medium" }}</em>
-	</p>
-	<form name="chatForm" class="form-horizontal" [formGroup]="chatForm" (submit)="sendChat();" novalidate>
-		<div class="form-group">
-			<label for="chatMessage">Chat</label>
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text"><i class="far fa-comment-alt" aria-hidden="true"></i></span>
-				</div>
-				<input type="text" name="chatMessage" id="chatMessage" class="form-control" formControlName="chatMessage" />
-			</div>
-			<div *ngIf="chatForm.controls.chatMessage?.invalid && chatForm.controls.chatMessage?.touched" class="alert alert-danger" role="alert">
-				<p *ngIf="chatForm.controls.chatMessage?.errors.required">Chat message is required.</p>
-				<p *ngIf="chatForm.controls.chatMessage?.errors.maxlength">Chat message is too long. You typed {{ chatForm.controls.chatMessage?.errors.maxlength.actualLength - chatForm.controls.chatMessage?.errors.maxlength.requiredLength }} too many characters.</p>
-			</div>
-		</div>
-		<button [disabled]="chatForm.invalid" class="btn btn-success" type="submit"><i class="far fa-comments"></i> Create Room</button>
-	</form>
+	<chat></chat>
 </ng-template>
 
 <div *ngIf="status !== null" class="alert alert-dismissible" [class]="status.type" role="alert">
