@@ -8,8 +8,6 @@ import {PubnubService} from "../shared/services/pubnub.service";
 })
 
 export class SenatorComponent {
-
-	roomName: string = null;
 	roomForm: FormGroup;
 	status: Status = null;
 

@@ -1,1 +1,44 @@
 <h1>Constituent Component</h1>
+<div *ngIf="pubnubService.getChatRoom() === null; else chat">
+	<h2>Create Room</h2>
+	<form name="roomForm" class="form-horizontal" [formGroup]="roomForm" (submit)="joinRoom();" novalidate>
+		<div class="form-group">
+			<label for="roomName">Room name</label>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fas fa-university" aria-hidden="true"></i></span>
+				</div>
+				<input type="text" name="roomName" id="roomName" class="form-control" formControlName="roomName" />
+			</div>
+			<div *ngIf="roomForm.controls.roomName?.invalid && roomForm.controls.roomName?.touched" class="alert alert-danger" role="alert">
+				<p *ngIf="roomForm.controls.roomName?.errors.required">Room name is required.</p>
+				<p *ngIf="roomForm.controls.roomName?.errors.maxlength">Room name is too long. You typed {{ roomForm.controls.roomName?.errors.maxlength.actualLength - roomForm.controls.roomName?.errors.maxlength.requiredLength }} too many characters.</p>
+				<p *ngIf="roomForm.controls.roomName?.errors.pattern">Room name can only contain small letters or a tack.</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="username">Username</label>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="far fa-user" aria-hidden="true"></i></span>
+				</div>
+				<input type="text" name="username" id="username" class="form-control" formControlName="username" />
+			</div>
+			<div *ngIf="roomForm.controls.username?.invalid && roomForm.controls.username?.touched" class="alert alert-danger" role="alert">
+				<p *ngIf="roomForm.controls.username?.errors.required">Username is required.</p>
+				<p *ngIf="roomForm.controls.username?.errors.maxlength">Username is too long. You typed {{ roomForm.controls.username?.errors.maxlength.actualLength - roomForm.controls.username?.errors.maxlength.requiredLength }} too many characters.</p>
+				<p *ngIf="roomForm.controls.username?.errors.pattern">Username can only contain small letters or a tack.</p>
+			</div>
+		</div>
+		<button [disabled]="roomForm.invalid" class="btn btn-success" type="submit"><i class="far fa-comments"></i> Join Room</button>
+	</form>
+</div>
+
+<ng-template #chat>
+	<chat></chat>
+</ng-template>
+
+<div *ngIf="status !== null" class="alert alert-dismissible" [class]="status.type" role="alert">
+	<button type="button" class="close" aria-label="Close" (click)="status = null;"><span aria-hidden="true">&times;</span></button>
+	{{ status.message }}
+</div>

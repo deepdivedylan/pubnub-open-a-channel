@@ -1,16 +1,24 @@
-import {Component, OnInit} from "@angular/core";
-import {PubNubAngular} from "pubnub-angular2";
+import {Component} from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Status} from "../shared/classes/status";
+import {PubnubService} from "../shared/services/pubnub.service";
 
 @Component({
 	template: require("./constituent.component.html")
 })
 
 export class ConstituentComponent {
+	roomForm: FormGroup;
+	status: Status = null;
 
-	constructor(protected pubnub: PubNubAngular) {
-		this.pubnub.init({
-			publishKey: "pub-c-d8eb3d22-aab2-4526-a633-a6da83bb3ef7",
-			subscribeKey: "sub-c-73e431b8-1cb2-11e8-b6fb-56b8b46ff3aa"
+	constructor(protected formBuilder: FormBuilder, protected pubnubService: PubnubService) {
+		this.roomForm = this.formBuilder.group({
+			roomName: ["", [Validators.maxLength(64), Validators.pattern(/^[\da-z-]+$/), Validators.required]],
+			username: ["", [Validators.maxLength(64), Validators.pattern(/^[\da-z-]+$/), Validators.required]]
 		});
+	}
+
+	joinRoom(): void {
+		this.pubnubService.joinChatRoom(this.roomForm.value.roomName, this.roomForm.value.username);
 	}
 }
