@@ -1,6 +1,7 @@
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import {PubNubAngular} from "pubnub-angular2";
+import {ChatComponent} from "./chat/chat.component";
 import {SplashComponent} from "./splash/splash.component";
 import {ConstituentComponent} from "./constituent/constituent.component";
 import {SenatorComponent} from "./senator/senator.component";
@@ -11,7 +12,7 @@ import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 import {PubnubService} from "./shared/services/pubnub.service";
 
 
-export const allAppComponents = [ConstituentComponent, SenatorComponent, SplashComponent];
+export const allAppComponents = [ChatComponent, ConstituentComponent, SenatorComponent, SplashComponent];
 
 export const routes: Routes = [
 	{path: "constituent", component: ConstituentComponent},
