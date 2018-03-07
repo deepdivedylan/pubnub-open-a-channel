@@ -1,5 +1,5 @@
 <h1>Senator Component</h1>
-<div *ngIf="roomName === null; else chat">
+<div *ngIf="pubnubService.getChatRoom() === null; else chat">
 	<h2>Create Room</h2>
 	<form name="roomForm" class="form-horizontal" [formGroup]="roomForm" (submit)="createRoom();" novalidate>
 		<div class="form-group">
