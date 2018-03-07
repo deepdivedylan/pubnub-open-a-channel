@@ -8,6 +8,7 @@ import {ConstituentService} from "./shared/services/constituent.service";
 import {SenatorService} from "./shared/services/senator.service";
 import {SessionService} from "./shared/services/session.service";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
+import {PubnubService} from "./shared/services/pubnub.service";
 
 
 export const allAppComponents = [ConstituentComponent, SenatorComponent, SplashComponent];
@@ -22,6 +23,7 @@ export const appRoutingProviders: any[] = [
 	{provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true},
 	PubNubAngular,
 	ConstituentService,
+	PubnubService,
 	SenatorService,
 	SessionService
 ];
