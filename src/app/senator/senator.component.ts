@@ -18,4 +18,8 @@ export class SenatorComponent {
 			roomName: ["", [Validators.maxLength(64), Validators.pattern(/^[\da-z-]+$/), Validators.required]]
 		});
 	}
+
+	createRoom(): void {
+		this.pubnubService.createRoom(this.roomForm.value.roomName);
+	}
 }
